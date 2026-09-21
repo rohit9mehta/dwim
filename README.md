@@ -63,7 +63,24 @@ DWIM sends two things to TypeSafe's API: the words you type into the palette, an
 
 `app/main.swift` is the whole app (AppKit, no dependencies): menu reading via `AXUIElement`, the Jev client, the floating panel, and the Option-tap trigger. `app/build.sh` compiles it into `DWIM.app`; `app/rebuild-and-relaunch.sh` also clears the stale Accessibility entry after a rebuild.
 
-You can test ranking from the terminal without the panel: `DWIM.app/Contents/MacOS/DWIM --query Finder "zip these files"` prints the top five menu items for a running app (add `--run` to press the first).
+## Try it from the terminal
+
+The same binary has a command-line mode, which doubles as a check that ranking works. The target app must be running, your terminal needs Accessibility permission, and your key must be in `TYPESAFE_API_KEY` or `~/.config/dwim/env`.
+
+```bash
+cd app && ./build.sh
+DWIM.app/Contents/MacOS/DWIM --query Finder "zip these files"
+```
+
+It prints the number of menu items read, the time taken, and the top five matches with Jev's probability. Expected: `File > Compress` comes first by a wide margin, for example:
+
+```
+  0.89  File > Compress
+  0.18  File > Share…
+  0.04  Window > Show Progress Window
+```
+
+Add `--run` to press the top match. `--query Finder "open a new window" --run` should open a Finder window.
 
 ## License
 
