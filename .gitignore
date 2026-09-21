@@ -1,0 +1,7 @@
+# build output
+app/DWIM.app/
+# local-only: test scripts, menu dumps (contain personal strings) and demo media
+eval/
+demo/
+__pycache__/
+.DS_Store
